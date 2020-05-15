@@ -1,0 +1,151 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            position: absolute;
+            z-index: 1;
+            width:100%;
+            background-color: yellow;
+        }
+
+        h6{
+            position:absolute;
+            left:20%;
+            top:60%;
+        }
+        
+        .menus{
+            position: absolute;
+            background-color: white;
+            width:35%;
+            left:10%;
+            height:100%;            
+        }
+
+        .menus #lb{
+            position: absolute;
+            left:35%;
+            top:32%;
+            width: 100px;
+            height: 170px;
+        }
+        .output{
+            position: absolute;
+            background-color: lightcoral;
+            left:50%;
+            width:50%;
+            height:100%;
+        
+        }
+        .output #idta{
+            position: relative;
+            left:30%;
+            top:30%;
+        }
+        .btn{
+            position: absolute;
+            top:40%;
+            left:47.5%;
+            z-index: 1;
+        }
+        .btn button{
+           width:40px;
+
+       }    
+
+       .explain{
+        position: absolute;
+        top:62%;
+        left:45%;
+        width: 50%;
+        font-size: 10px;
+       } 
+       .explain #ctn{
+           left:50%;
+       }
+
+    </style>
+</head>
+<body>
+    <center>
+        <h1>JS TUTORIAL2</h1>
+    </center>
+    <div class="menus">
+               
+        <select name="listbox" id="lb" size="7" multiple>
+            <option value="축구">축구</option>  
+            <option value="농구">농구</option>  
+            <option value="배구">배구</option>  
+            <option value="수구">수구</option>  
+            <option value="탁구">탁구</option>  
+            <option value="야구">야구</option>  
+            <option value="럭비">럭비</option> 
+            <option value="하키">하키</option> 
+            <option value="크리켓">크리켓</option>  
+            <option value="테니스">테니스</option> 
+            <option value="소프트볼">소프트볼</option> 
+            <option value="미식축구">미식축구</option>  
+            <option value="배드민턴">배드민턴</option>  
+        </select>
+    </div>    
+    <div class="btn" >
+        <button onclick="setText()">></button><br>
+        <button onclick="backText()"><</button><br>
+        <button onclick="setallText()">>></button><br>
+        <button onclick="backallText()"><<</button><br>
+    </div>
+    <div class="output">
+        <textarea name="ta" id="idta" cols="30" rows="13" placeholder="select items left" ></textarea>
+    </div>
+    <hr style="width:80%"><br><br>
+    <h6>+ctrl키로 다중선택이 가능합니다</h6>
+    <div class="explain">
+            [>] : 선택된 것을 입력합니다<br>
+            [<] : 가장 마지막 내용을 제거합니다<br>
+            [>>]: 모든 메뉴를 입력합니다<br>
+            [<<]: 모든 내용을 제거합니다
+    </div>
+
+    <script>
+        var menus=document.getElementById('lb');
+        var btns=document.getElementsByTagName('button');
+        var tarea=document.getElementById('idta');
+
+        function setText(){
+            var tmp="";
+
+            for(i=0;i<menus.length;i++){
+                if(menus[i].selected == true){
+                    tmp+=menus[i].value+"\r\n";
+                }
+            }
+           tarea.value=tmp;
+        }
+
+        function setallText(){
+            var tmp ="";
+            for(i=0;i<menus.length;i++){
+                tmp+=menus[i].value+"\r\n";
+            }
+            tarea.value=tmp;
+        }
+
+        function backText(){
+            var oldarr=tarea.value.split('\n');
+            var tmp="";
+            for(i=0;i<oldarr.length-2;i++){
+                tmp+=oldarr[i]+"\r\n";
+            }
+            tarea.value=tmp;
+        }
+
+        function backallText(){
+            tarea.value=null;           
+        }
+    </script>
+
+</body>
+</html>

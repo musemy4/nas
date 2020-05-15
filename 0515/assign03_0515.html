@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card game</title>
+    <style>
+        
+        img{
+            width: 100px;
+            height:160px;
+        }
+        .cards{
+            background-color: white;
+            width:100%;
+        }
+
+        td:hover{
+            background-color: gray;
+        }
+        
+        .btns{
+            background-color: white;
+           
+            width:100%;
+            height:20%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 버튼부분, 이벤트 등록도 바로~  -->
+    <div class="btns">
+        <button id="btnNew" onclick="newGame()">new</button>
+        <button id="btnHideall" onclick="hideAll()">hide all</button>
+        <button id="btnFlipall" onclick="flipAll()">flip all</button>
+        <button id="btnShff" onclick="shff()">shuffle</button>
+    </div>
+
+    <!-- 카드 시각화 셋팅 -->
+    <div class="cards">
+        <table>
+            <tr>
+                <td><img src="E:\js\card_img/0.png" alt=""></td>
+                <td><img src="E:\js\card_img/1.png" alt=""></td>
+                <td><img src="E:\js\card_img/2.png" alt=""></td>
+                <td><img src="E:\js\card_img/3.png" alt=""></td>
+                <td><img src="E:\js\card_img/4.png" alt=""></td>
+                <td><img src="E:\js\card_img/5.png" alt=""></td>
+                <td><img src="E:\js\card_img/6.png" alt=""></td>
+                <td><img src="E:\js\card_img/7.png" alt=""></td>
+                <td><img src="E:\js\card_img/8.png" alt=""></td>
+                <td><img src="E:\js\card_img/9.png" alt=""></td>
+                <td><img src="E:\js\card_img/10.png" alt=""></td>
+                <td><img src="E:\js\card_img/11.png" alt=""></td>
+                <td><img src="E:\js\card_img/12.png" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="E:\js\card_img/13.png" alt=""></td>
+                <td><img src="E:\js\card_img/14.png" alt=""></td>
+                <td><img src="E:\js\card_img/15.png" alt=""></td>
+                <td><img src="E:\js\card_img/16.png" alt=""></td>
+                <td><img src="E:\js\card_img/17.png" alt=""></td>
+                <td><img src="E:\js\card_img/18.png" alt=""></td>
+                <td><img src="E:\js\card_img/19.png" alt=""></td>
+                <td><img src="E:\js\card_img/20.png" alt=""></td>
+                <td><img src="E:\js\card_img/21.png" alt=""></td>
+                <td><img src="E:\js\card_img/22.png" alt=""></td>
+                <td><img src="E:\js\card_img/23.png" alt=""></td>
+                <td><img src="E:\js\card_img/24.png" alt=""></td>
+                <td><img src="E:\js\card_img/25.png" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="E:\js\card_img/26.png" alt=""></td>
+                <td><img src="E:\js\card_img/27.png" alt=""></td>
+                <td><img src="E:\js\card_img/28.png" alt=""></td>
+                <td><img src="E:\js\card_img/29.png" alt=""></td>
+                <td><img src="E:\js\card_img/30.png" alt=""></td>
+                <td><img src="E:\js\card_img/31.png" alt=""></td>
+                <td><img src="E:\js\card_img/32.png" alt=""></td>
+                <td><img src="E:\js\card_img/33.png" alt=""></td>
+                <td><img src="E:\js\card_img/34.png" alt=""></td>
+                <td><img src="E:\js\card_img/35.png" alt=""></td>
+                <td><img src="E:\js\card_img/36.png" alt=""></td>
+                <td><img src="E:\js\card_img/37.png" alt=""></td>
+                <td><img src="E:\js\card_img/38.png" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="E:\js\card_img/39.png" alt=""></td>
+                <td><img src="E:\js\card_img/40.png" alt=""></td>
+                <td><img src="E:\js\card_img/41.png" alt=""></td>
+                <td><img src="E:\js\card_img/42.png" alt=""></td>
+                <td><img src="E:\js\card_img/43.png" alt=""></td>
+                <td><img src="E:\js\card_img/44.png" alt=""></td>
+                <td><img src="E:\js\card_img/45.png" alt=""></td>
+                <td><img src="E:\js\card_img/46.png" alt=""></td>
+                <td><img src="E:\js\card_img/47.png" alt=""></td>
+                <td><img src="E:\js\card_img/48.png" alt=""></td>
+                <td><img src="E:\js\card_img/49.png" alt=""></td>
+                <td><img src="E:\js\card_img/50.png" alt=""></td>
+                <td><img src="E:\js\card_img/51.png" alt=""></td>
+            </tr>
+        </table>    
+    </div>
+
+    <!-- js -->
+    <script>
+        //new할때 쓰이는 셋
+        var defaultset=
+        ["E:/js/card_img/0.png","E:/js/card_img/1.png","E:/js/card_img/2.png"
+        ,"E:/js/card_img/3.png","E:/js/card_img/4.png","E:/js/card_img/5.png"
+        ,"E:/js/card_img/9.png","E:/js/card_img/10.png","E:/js/card_img/11.png"
+        ,"E:/js/card_img/6.png","E:/js/card_img/7.png","E:/js/card_img/8.png"
+        ,"E:/js/card_img/12.png","E:/js/card_img/13.png","E:/js/card_img/14.png"
+        ,"E:/js/card_img/15.png","E:/js/card_img/16.png","E:/js/card_img/17.png"
+        ,"E:/js/card_img/18.png","E:/js/card_img/19.png","E:/js/card_img/20.png"
+        ,"E:/js/card_img/21.png","E:/js/card_img/22.png","E:/js/card_img/23.png"
+        ,"E:/js/card_img/24.png","E:/js/card_img/25.png","E:/js/card_img/26.png"
+        ,"E:/js/card_img/27.png","E:/js/card_img/28.png","E:/js/card_img/29.png"
+        ,"E:/js/card_img/30.png","E:/js/card_img/31.png","E:/js/card_img/32.png"
+        ,"E:/js/card_img/33.png","E:/js/card_img/34.png","E:/js/card_img/35.png"
+        ,"E:/js/card_img/36.png","E:/js/card_img/37.png","E:/js/card_img/38.png"
+        ,"E:/js/card_img/39.png","E:/js/card_img/40.png","E:/js/card_img/41.png"
+        ,"E:/js/card_img/42.png","E:/js/card_img/43.png","E:/js/card_img/44.png"
+        ,"E:/js/card_img/45.png","E:/js/card_img/46.png","E:/js/card_img/47.png"
+        ,"E:/js/card_img/48.png","E:/js/card_img/49.png","E:/js/card_img/50.png"
+        ,"E:/js/card_img/51.png"]
+        
+        
+        var btnnew=document.getElementById("btnNew");
+        var btnhideall=document.getElementById("btnHideall");
+        var btnflipall=document.getElementById("btnFlipall");
+        
+        var btnshff=document.getElementById("btnShff");
+
+        //카드
+        var cards=document.getElementsByTagName('img');
+        
+        //뒤집을때 앞모습저장 배열
+        var bfsrcset= new Array(cards.length);
+
+
+        //함수들
+        function newGame(){
+            for(x=0;x<cards.length;x++){
+                cards[x].src=defaultset[x];
+            }
+        }
+
+        //1.섞는다
+        function shff(){
+            for(x=0;x<cards.length;x++){
+                //겹치면 안됨 그럼 줄어듬
+                var idx=Math.floor(Math.random()*cards.length);
+                var tmp=cards[x].src;
+                cards[x].src=cards[idx].src;
+                cards[idx].src=tmp;
+        
+            }
+        }
+        //2.뒷장으로 뒤집는다
+        function hideAll(){
+            for(x=0;x<cards.length;x++){
+                bfsrcset[x]=cards[x].src;// 앞값 저장한다**
+                cards[x].src="E:/js/card_img/100.jpg";
+            }
+        }
+        
+        //3.클릭될때 뒤집힘
+        let beforeNum=-1;
+        let beforeidx=-1;
+        let cnt=0;
+
+        for(let x=0;x<cards.length;x++){
+            //클릭되면
+            cards[x].onclick=function(){
+                cards[x].src=bfsrcset[x]; //앞면으로 까주고
+                                        //그 번호 저장 +26과 짝임   
+
+                    var srcsplit=cards[x].src.split('/');
+                    var src=srcsplit[srcsplit.length-1].split('.');
+                    var num=Number(src[0]);//숫자로 바꾸는 형변환
+                    //alert(num);
+                    
+
+                cnt++;
+
+                if(cnt%2==0){//짝맞추기 시도!!!
+                    if(beforeNum-num==26||num-beforeNum==26){
+                        alert("짝이다"); //앞면유지
+                        
+                    }else{//짝이 아니면 다시 뒤집어짐
+                       // alert("짝이 아니다");
+                            cards[beforeidx].src="E:/js/card_img/100.jpg";
+                        setTimeout(function(){
+                            cards[x].src="E:/js/card_img/100.jpg";
+                        },1000);
+                    }
+                }
+            
+
+                beforeNum=num;
+                beforeidx=x;
+           
+            }//클릭되면 끝
+          
+        }
+
+
+
+
+
+        //끝날때
+        function flipAll(){
+            for(x=0;x<cards.length;x++){
+                if(cards[x])
+                cards[x].src=bfsrcset[x];
+            }
+        }
+
+ 
+    </script>
+
+
+</body>
+</html>
