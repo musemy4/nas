@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card game</title>
+    <style>
+        body{
+            width:100%;
+        }
+        table{
+            position: absolute;
+            top:140px;
+            width:100%;
+        }
+        
+        img{
+            width: 80px;
+            height:120px;
+        }
+        .cards{
+            background-color: white;
+            width:100%;
+        }
+        .title{
+            position: relative;
+            background-color: snow;
+        }
+        .board{
+            position:absolute;
+            background-color: snow;
+            left:70%;
+            z-index: 1;
+        }
+        .board.timebox{
+            position:relative;
+            height:5px;
+            left:80%;
+        }
+
+        td:hover{
+            vertical-align: center;
+            text-align: center;
+            background-color: chartreuse;
+        }
+        
+        .btns{
+            position: absolute;
+            background-color: white;
+            top:50px;
+            left:70%;
+            width:100%;
+            height:20%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 버튼부분, 이벤트 등록도 바로~  -->
+    <div class="board">
+        <div class="timebox">tik-tik:</div>
+    </div>
+    <div class="title">
+        <center>
+            <h1>CARD GAME</h1>
+            <h3>find sets in short time!</h3>
+        </center>
+    </div>
+    <div class="btns">
+        <button id="btnNew" onclick="newGame()">new</button>
+        <button id="btnDone" onclick="Done()">I'm Done</button>
+    </div>
+
+    <!-- 카드 시각화 셋팅 -->
+    <div class="cards">
+        <table>
+            <tr>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td>
+            </tr>
+            <tr>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td><td><img src="" alt=""></td>
+                <td><img src="" alt=""></td>
+            </tr>
+        </table>    
+    </div>
+<!-- js -->
+    <script>
+                
+        //new할때 쓰이는 셋
+        var defaultset= new Array(52);
+        
+        //상대경로 src 문자열로 넣기!
+        for(var i=0;i<defaultset.length;i++){
+            defaultset[i]="./"+i+".png";
+        }
+        
+        
+        
+        //카드
+        var cards=document.getElementsByTagName('img');
+        
+        //뒤집을때 앞모습저장 배열
+        var bfsrcset= new Array(cards.length);
+
+        var game=true;
+
+        //함수들
+        function newGame(){
+            for(x=0;x<cards.length;x++){
+                cards[x].src=defaultset[x];
+            }
+            setTimeout(function(){
+                shff();
+            },5000)
+            setTimeout(function(){
+                shff();
+            },5000)
+            setTimeout(function(){
+                shff();
+            },5000)
+            
+            setTimeout(function(){
+                hideAll();
+                countTime();
+            },8000)
+            
+        }
+
+        //1.섞는다
+        function shff(){
+            for(x=0;x<cards.length;x++){
+                //겹치면 안됨 그럼 줄어듬
+                var idx=Math.floor(Math.random()*cards.length);
+                var tmp=cards[x].src;
+                cards[x].src=cards[idx].src;
+                cards[idx].src=tmp;
+        
+            }
+        }
+        //2.뒷장으로 뒤집는다
+        function hideAll(){
+            for(x=0;x<cards.length;x++){
+                bfsrcset[x]=cards[x].src;// 앞값 저장한다**
+                cards[x].src="./100.jpg";
+            }
+        }
+
+        //게임이 끝났는지 검사
+        var flag=true;
+        function isDone(){
+            flag=true;
+            for(x=0;x<cards.length;x++){
+                if(cards[x].src=="./100.jpg"){
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag==true){
+                game=false;
+                var stopline=timeBox.innerHTML+"";
+                var tmp=stopline.split(':');
+                var score=tmp[1];
+                setTimeout(function(){
+                    alert("수고하셨습니다! \n당신의 점수는: "+score);
+                },3000)
+            }
+        }
+
+        //점수=시간초
+        var timeBox = document.querySelector('.timebox');
+        var time = "Your time: 0s";
+        var timeInterval;
+
+        function countTime(){
+            time = 0;
+            timeBox.innerHTML = time
+            timeInterval = setInterval(function(){
+                time ++;
+                timeBox.innerHTML = "tik-tik: " + time + "s";
+            }, 1000)
+        
+        }
+
+
+        //3.클릭될때 뒤집힘
+        let beforeNum=-1;
+        let beforeidx=-1;
+        let cnt=0;
+
+        for(let x=0;x<cards.length;x++){
+            //클릭되면
+            cards[x].onclick=function(){
+                cards[x].src=bfsrcset[x]; //앞면으로 까주고
+                                        //그 번호 저장 +26과 짝임   
+
+                    var srcsplit=cards[x].src.split('/');
+                    var src=srcsplit[srcsplit.length-1].split('.');
+                    var num=Number(src[0]);//숫자로 바꾸는 형변환
+                    //alert(num);
+                    
+
+                cnt++;
+
+                if(cnt%2==0){//짝맞추기 시도!!!
+                    if(beforeNum-num==26||num-beforeNum==26){
+                        alert("짝이다"); //앞면유지
+                        
+                    }else{//짝이 아니면 다시 뒤집어짐
+                       // alert("짝이 아니다");
+                            cards[beforeidx].src="./100.jpg";
+                        setTimeout(function(){
+                            cards[x].src="./100.jpg";
+                        },1000);
+                    }
+                }
+                beforeNum=num;
+                beforeidx=x;
+           
+            }//클릭되면 끝
+        }
+
+        //끝날때 앞을 다 보여준다
+        function Done(){
+            for(x=0;x<cards.length;x++){
+                if(cards[x])
+                cards[x].src=bfsrcset[x];
+            }
+            isDone();
+            
+        }
+
+ 
+    </script>
+
+
+</body>
+</html>
